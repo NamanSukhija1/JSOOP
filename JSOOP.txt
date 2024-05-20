@@ -1,0 +1,140 @@
+
+
+### BankAccount Class
+```javascript
+class BankAccount {
+    constructor(balance = 0) {
+        this.balance = balance;
+    }
+
+    deposit(amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            return `Successfully deposited ${amount} units. New balance: ${this.balance}`;
+        } else {
+            return "Deposit amount must be positive.";
+        }
+    }
+
+    withdraw(amount) {
+        if (amount > 0) {
+            if (this.balance >= amount) {
+                this.balance -= amount;
+                return `Successfully withdrew ${amount} units. New balance: ${this.balance}`;
+            } else {
+                return "Insufficient funds.";
+            }
+        } else {
+            return "Withdrawal amount must be positive.";
+        }
+    }
+
+    checkBalance() {
+        return `Current balance: ${this.balance}`;
+    }
+}
+
+// Example usage:
+const account = new BankAccount(100);
+console.log(account.deposit(50)); // Output: Successfully deposited 50 units. New balance: 150
+console.log(account.withdraw(30)); // Output: Successfully withdrew 30 units. New balance: 120
+console.log(account.checkBalance()); // Output: Current balance: 120
+```
+
+### Student and Admission Classes
+```javascript
+class Student {
+    constructor(name) {
+        this.name = name;
+        this.courses = [];
+    }
+
+    enroll(course) {
+        this.courses.push(course);
+    }
+
+    displayCourses() {
+        console.log(`${this.name}'s enrolled courses: ${this.courses.join(', ')}`);
+    }
+}
+
+class Admission {
+    constructor() {
+        this.students = [];
+    }
+
+    enrollStudent(student) {
+        this.students.push(student);
+    }
+
+    admitStudent(student, course) {
+        const enrolledStudent = this.students.find(s => s.name === student.name);
+        if (enrolledStudent) {
+            enrolledStudent.enroll(course);
+            console.log(`${student.name} enrolled in ${course}.`);
+        } else {
+            console.log("Student not found in the enrollment list.");
+        }
+    }
+
+    displayEnrolledStudents() {
+        this.students.forEach(student => {
+            console.log(`Student: ${student.name}`);
+            student.displayCourses();
+        });
+    }
+}
+
+// Example usage:
+const student1 = new Student("Alice");
+const student2 = new Student("Bob");
+const admission = new Admission();
+admission.enrollStudent(student1);
+admission.enrollStudent(student2);
+admission.admitStudent(student1, "Math");
+admission.admitStudent(student2, "Physics");
+admission.displayEnrolledStudents();
+```
+
+### Temperature Class
+```javascript
+class Temperature {
+    constructor(celsius = 0, fahrenheit = 32) {
+        this._celsius = celsius;
+        this._fahrenheit = fahrenheit;
+    }
+
+    get celsius() {
+        return this._celsius;
+    }
+
+    set celsius(value) {
+        if (typeof value === 'number') {
+            this._celsius = value;
+            this._fahrenheit = value * 9 / 5 + 32;
+        } else {
+            console.log("Temperature must be a number.");
+        }
+    }
+
+    get fahrenheit() {
+        return this._fahrenheit;
+    }
+
+    set fahrenheit(value) {
+        if (typeof value === 'number') {
+            this._fahrenheit = value;
+            this._celsius = (value - 32) * 5 / 9;
+        } else {
+            console.log("Temperature must be a number.");
+        }
+    }
+}
+
+// Example usage:
+const temp = new Temperature(25);
+console.log(temp.celsius); // Output: 25
+console.log(temp.fahrenheit); // Output: 77
+temp.fahrenheit = 100;
+console.log(temp.celsius); // Output: 37.77777777777778
+```
